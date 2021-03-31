@@ -89419,7 +89419,20 @@ var sketch = function sketch(p5) {
 
         if (cellArray[i][j] === 1 && liveNeighbours.length === 3 || liveNeighbours.length === 2) {
           cellArray[i][j] = 1;
+        } // Any dead cell with three live neighbours becomes a live cell.
+
+
+        if (cellArray[i][j] === 0 && liveNeighbours.length === 3) {
+          cellArray[i][j] = 1;
         }
+      }
+    }
+
+    for (var i = 0; i < p5.width; i++) {
+      for (var j = 0; j < p5.height; j++) {
+        p5.noStroke();
+        p5.fill(p5.random(255), p5.random(255), p5.random(255));
+        p5.square(i, j, 1);
       }
     }
   };
@@ -89454,7 +89467,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43097" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40933" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

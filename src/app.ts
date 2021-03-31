@@ -33,8 +33,8 @@ const sketch = (p5: P5) => {
 
 	// The sketch draw method
 	p5.draw = () => {
-		for(let i = 0; i < p5.width; i++) {
-			
+		
+		for(let i = 0; i < p5.width; i++) {			
 			for(let j = 0; j < p5.height; j++) {
 				let liveNeighbours: number[] = [];
 
@@ -73,6 +73,14 @@ const sketch = (p5: P5) => {
 				if (cellArray[i][j] === 0 && liveNeighbours.length === 3) {
 					cellArray[i][j] = 1;
 				}
+			}
+		}
+
+		for(let i = 0; i < p5.width; i++) {
+			for(let j = 0; j < p5.height; j++) {
+				p5.noStroke();
+				p5.fill(p5.random(255),p5.random(255), p5.random(255));
+				p5.square(i, j, 1);
 			}
 		}
 	};

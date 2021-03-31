@@ -1,6 +1,6 @@
 import P5 from "p5";
 
-export default class MyCircle {
+export default class Cell {
 	_p5: P5;
 	_pos: P5.Vector;
 	_size: number;
@@ -20,7 +20,5 @@ export default class MyCircle {
 		p5.noStroke();
 		p5.fill("orange");
 		p5.ellipse(0, 0, this._size);
-
-		p5.pop();
 	}
 }
