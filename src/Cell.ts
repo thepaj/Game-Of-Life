@@ -1,9 +1,6 @@
 import P5 from "p5";
 
 export default class Cell {
-	_p5: P5;
-	_pos: P5.Vector;
-	_size: number;
 
 	constructor(p5: P5, atPosition: P5.Vector, size: number) {
 		this._p5 = p5;
@@ -11,14 +8,9 @@ export default class Cell {
 		this._size = size;
 	}
 
-	draw() {
-		const p5 = this._p5; // just for convenience
-
-		p5.push();
-
-		p5.translate(this._pos);
+	show() {
 		p5.noStroke();
-		p5.fill("orange");
-		p5.ellipse(0, 0, this._size);
+		p5.fill(0,0,0);
+		p5.square(i, j, 1);
 	}
 }

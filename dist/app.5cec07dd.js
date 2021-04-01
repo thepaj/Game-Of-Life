@@ -89354,13 +89354,15 @@ var p5_1 = __importDefault(require("p5"));
 require("p5/lib/addons/p5.dom"); // import "p5/lib/addons/p5.sound";	// Include if needed
 
 
-require("./styles.scss"); // Creating the sketch itself
+require("./styles.scss"); //import Cell from "./Cell";
+// Creating the sketch itself
 
 
 var sketch = function sketch(p5) {
   // DEMO: Prepare an array of MyCircle instances
   // const cells: Cell[] = [];
-  var cellArray = [[], []]; // The sketch setup method 
+  var cellArray = [[], []];
+  var cells = [[], []]; // The sketch setup method 
 
   p5.setup = function () {
     // Creating and positioning the canvas
@@ -89376,43 +89378,53 @@ var sketch = function sketch(p5) {
         cellArray[i][j] = 1;
       }
     }
+
+    cellArray[3][10] = 0;
+    cellArray[4][10] = 0;
+    cellArray[5][10] = 0;
   }; // The sketch draw method
 
 
   p5.draw = function () {
-    for (var i = 0; i < p5.width; i++) {
-      for (var j = 0; j < p5.height; j++) {
-        var liveNeighbours = []; // checking neighbour live or dead top left to bottom right
+    var _loop_1 = function _loop_1(i) {
+      var _loop_2 = function _loop_2(j) {
+        var liveNeighbours = [];
 
-        if (cellArray[i - 1][j - 1] === 1) {
+        var cellCheck = function cellCheck() {
+          return i - 1 !== -1 && j - 1 !== -1 && i + 1 < p5.width && j + 1 < p5.height;
+        }; // checking if array exists
+        // checking neighbour live or dead top left to bottom right
+
+
+        if (cellCheck() && cellArray[i - 1][j - 1] === 1) {
           liveNeighbours.push(1);
         }
 
-        if (cellArray[i - 1][j] === 1) {
+        if (cellCheck() && cellArray[i - 1][j] === 1) {
           liveNeighbours.push(1);
         }
 
-        if (cellArray[i - 1][j + 1] === 1) {
+        if (cellCheck() && cellArray[i - 1][j + 1] === 1) {
           liveNeighbours.push(1);
         }
 
-        if (cellArray[i][j - 1] === 1) {
+        if (cellCheck() && cellArray[i][j - 1] === 1) {
           liveNeighbours.push(1);
         }
 
-        if (cellArray[i][j + 1] === 1) {
+        if (cellCheck() && cellArray[i][j + 1] === 1) {
           liveNeighbours.push(1);
         }
 
-        if (cellArray[i + 1][j - 1] === 1) {
+        if (cellCheck() && cellArray[i + 1][j - 1] === 1) {
           liveNeighbours.push(1);
         }
 
-        if (cellArray[i + 1][j] === 1) {
+        if (cellCheck() && cellArray[i + 1][j] === 1) {
           liveNeighbours.push(1);
         }
 
-        if (cellArray[i + 1][j + 1] === 1) {
+        if (cellCheck() && cellArray[i + 1][j + 1] === 1) {
           liveNeighbours.push(1);
         } // Any live cell with two or three live neighbours survives
 
@@ -89425,14 +89437,28 @@ var sketch = function sketch(p5) {
         if (cellArray[i][j] === 0 && liveNeighbours.length === 3) {
           cellArray[i][j] = 1;
         }
+      };
+
+      for (var j = 0; j < p5.height; j++) {
+        _loop_2(j);
       }
+    };
+
+    for (var i = 0; i < p5.width; i++) {
+      _loop_1(i);
     }
 
     for (var i = 0; i < p5.width; i++) {
       for (var j = 0; j < p5.height; j++) {
-        p5.noStroke();
-        p5.fill(p5.random(255), p5.random(255), p5.random(255));
-        p5.square(i, j, 1);
+        if (cellArray[i][j] === 1) {
+          p5.noStroke();
+          p5.fill(255, 255, 255);
+          p5.square(i, j, 1);
+        } else {
+          p5.noStroke();
+          p5.fill(0, 0, 0);
+          p5.square(i, j, 1);
+        }
       }
     }
   };
@@ -89467,7 +89493,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40933" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38951" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
