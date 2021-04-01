@@ -13,7 +13,8 @@ const sketch = (p5: P5) => {
 	// DEMO: Prepare an array of MyCircle instances
 	// const cells: Cell[] = [];
 
-	const cellArray: number[][] = [[], []];
+	let previousStageArray: number[][] = [[], []];
+	let nextStageArray: number[][] = [[],[]];
 	const cells = [[], []];
 
 	// The sketch setup method 
@@ -26,24 +27,24 @@ const sketch = (p5: P5) => {
 		p5.background("white");
 
 		for (let i = 0; i < p5.width; i++) {
-			cellArray[i] = [];
+			previousStageArray[i] = [];
 			for (let j = 0; j < p5.height; j++) {
-				cellArray[i][j] = 1;
+				previousStageArray[i][j] = 1;
 			}
 		}
 
-		cellArray[3][10] = 0;
-		cellArray[4][10] = 0;
-		cellArray[5][10] = 0;
+		previousStageArray[3][10] = 0;
+		previousStageArray[4][10] = 0;
+		previousStageArray[5][10] = 0;
+
+		nextStageArray = [...previousStageArray];
 	};
 
 	// The sketch draw method
 	p5.draw = () => {
-
-
 		for (let i = 0; i < p5.width; i++) {
 			for (let j = 0; j < p5.height; j++) {
-				let liveNeighbours: number[] = [];
+				let liveNeighbours: number = 0;
 
 				let cellCheck = () => {
 					return (i - 1 !== -1 && j - 1 !== -1 && i + 1 < p5.width && j + 1 < p5.height);
@@ -51,46 +52,48 @@ const sketch = (p5: P5) => {
 
 				// checking if array exists
 				// checking neighbour live or dead top left to bottom right
-				if (cellCheck() && cellArray[i - 1][j - 1] === 1) {
-					liveNeighbours.push(1);
+				if (cellCheck() && previousStageArray[i - 1][j - 1] === 1) {
+					liveNeighbours++
 				}
-				if (cellCheck() && cellArray[i - 1][j] === 1) {
-					liveNeighbours.push(1);
+				if (cellCheck() && previousStageArray[i - 1][j] === 1) {
+					liveNeighbours++
 				}
-				if (cellCheck() && cellArray[i - 1][j + 1] === 1) {
-					liveNeighbours.push(1);
+				if (cellCheck() && previousStageArray[i - 1][j + 1] === 1) {
+					liveNeighbours++
 				}
-				if (cellCheck() && cellArray[i][j - 1] === 1) {
-					liveNeighbours.push(1);
+				if (cellCheck() && previousStageArray[i][j - 1] === 1) {
+					liveNeighbours++
 				}
-				if (cellCheck() && cellArray[i][j + 1] === 1) {
-					liveNeighbours.push(1);
+				if (cellCheck() && previousStageArray[i][j + 1] === 1) {
+					liveNeighbours++
 				}
-				if (cellCheck() && cellArray[i + 1][j - 1] === 1) {
-					liveNeighbours.push(1);
+				if (cellCheck() && previousStageArray[i + 1][j - 1] === 1) {
+					liveNeighbours++
 				}
-				if (cellCheck() && cellArray[i + 1][j] === 1) {
-					liveNeighbours.push(1);
+				if (cellCheck() && previousStageArray[i + 1][j] === 1) {
+					liveNeighbours++
 				}
-				if (cellCheck() && cellArray[i + 1][j + 1] === 1) {
-					liveNeighbours.push(1);
+				if (cellCheck() && previousStageArray[i + 1][j + 1] === 1) {
+					liveNeighbours++
 				}
 
 				// Any live cell with two or three live neighbours survives
-				if (cellArray[i][j] === 1 && liveNeighbours.length === 3 || liveNeighbours.length === 2) {
-					cellArray[i][j] = 1;
+				if (previousStageArray[i][j] === 1 && liveNeighbours === 3 || liveNeighbours === 2) {
+					nextStageArray[i][j] = 1;
 				}
 
 				// Any dead cell with three live neighbours becomes a live cell.
-				if (cellArray[i][j] === 0 && liveNeighbours.length === 3) {
-					cellArray[i][j] = 1;
+				if (previousStageArray[i][j] === 0 && liveNeighbours === 3) {
+					nextStageArray[i][j] = 1;
 				}
 			}
 		}
 
+		previousStageArray = nextStageArray;
+
 		for (let i = 0; i < p5.width; i++) {
 			for (let j = 0; j < p5.height; j++) {
-				if (cellArray[i][j] === 1) {
+				if (previousStageArray[i][j] === 1) {
 					p5.noStroke();
 					p5.fill(255, 255, 255);
 					p5.square(i, j, 1);

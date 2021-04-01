@@ -89339,6 +89339,14 @@ module.hot.accept(reloadCSS);
 },{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/app.ts":[function(require,module,exports) {
 "use strict";
 
+var __spreadArray = this && this.__spreadArray || function (to, from) {
+  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) {
+    to[j] = from[i];
+  }
+
+  return to;
+};
+
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -89361,7 +89369,8 @@ require("./styles.scss"); //import Cell from "./Cell";
 var sketch = function sketch(p5) {
   // DEMO: Prepare an array of MyCircle instances
   // const cells: Cell[] = [];
-  var cellArray = [[], []];
+  var previousStageArray = [[], []];
+  var nextStageArray = [[], []];
   var cells = [[], []]; // The sketch setup method 
 
   p5.setup = function () {
@@ -89372,23 +89381,24 @@ var sketch = function sketch(p5) {
     p5.background("white");
 
     for (var i = 0; i < p5.width; i++) {
-      cellArray[i] = [];
+      previousStageArray[i] = [];
 
       for (var j = 0; j < p5.height; j++) {
-        cellArray[i][j] = 1;
+        previousStageArray[i][j] = 1;
       }
     }
 
-    cellArray[3][10] = 0;
-    cellArray[4][10] = 0;
-    cellArray[5][10] = 0;
+    previousStageArray[3][10] = 0;
+    previousStageArray[4][10] = 0;
+    previousStageArray[5][10] = 0;
+    nextStageArray = __spreadArray([], previousStageArray);
   }; // The sketch draw method
 
 
   p5.draw = function () {
     var _loop_1 = function _loop_1(i) {
       var _loop_2 = function _loop_2(j) {
-        var liveNeighbours = [];
+        var liveNeighbours = 0;
 
         var cellCheck = function cellCheck() {
           return i - 1 !== -1 && j - 1 !== -1 && i + 1 < p5.width && j + 1 < p5.height;
@@ -89396,46 +89406,46 @@ var sketch = function sketch(p5) {
         // checking neighbour live or dead top left to bottom right
 
 
-        if (cellCheck() && cellArray[i - 1][j - 1] === 1) {
-          liveNeighbours.push(1);
+        if (cellCheck() && previousStageArray[i - 1][j - 1] === 1) {
+          liveNeighbours++;
         }
 
-        if (cellCheck() && cellArray[i - 1][j] === 1) {
-          liveNeighbours.push(1);
+        if (cellCheck() && previousStageArray[i - 1][j] === 1) {
+          liveNeighbours++;
         }
 
-        if (cellCheck() && cellArray[i - 1][j + 1] === 1) {
-          liveNeighbours.push(1);
+        if (cellCheck() && previousStageArray[i - 1][j + 1] === 1) {
+          liveNeighbours++;
         }
 
-        if (cellCheck() && cellArray[i][j - 1] === 1) {
-          liveNeighbours.push(1);
+        if (cellCheck() && previousStageArray[i][j - 1] === 1) {
+          liveNeighbours++;
         }
 
-        if (cellCheck() && cellArray[i][j + 1] === 1) {
-          liveNeighbours.push(1);
+        if (cellCheck() && previousStageArray[i][j + 1] === 1) {
+          liveNeighbours++;
         }
 
-        if (cellCheck() && cellArray[i + 1][j - 1] === 1) {
-          liveNeighbours.push(1);
+        if (cellCheck() && previousStageArray[i + 1][j - 1] === 1) {
+          liveNeighbours++;
         }
 
-        if (cellCheck() && cellArray[i + 1][j] === 1) {
-          liveNeighbours.push(1);
+        if (cellCheck() && previousStageArray[i + 1][j] === 1) {
+          liveNeighbours++;
         }
 
-        if (cellCheck() && cellArray[i + 1][j + 1] === 1) {
-          liveNeighbours.push(1);
+        if (cellCheck() && previousStageArray[i + 1][j + 1] === 1) {
+          liveNeighbours++;
         } // Any live cell with two or three live neighbours survives
 
 
-        if (cellArray[i][j] === 1 && liveNeighbours.length === 3 || liveNeighbours.length === 2) {
-          cellArray[i][j] = 1;
+        if (previousStageArray[i][j] === 1 && liveNeighbours === 3 || liveNeighbours === 2) {
+          nextStageArray[i][j] = 1;
         } // Any dead cell with three live neighbours becomes a live cell.
 
 
-        if (cellArray[i][j] === 0 && liveNeighbours.length === 3) {
-          cellArray[i][j] = 1;
+        if (previousStageArray[i][j] === 0 && liveNeighbours === 3) {
+          nextStageArray[i][j] = 1;
         }
       };
 
@@ -89448,9 +89458,11 @@ var sketch = function sketch(p5) {
       _loop_1(i);
     }
 
+    previousStageArray = nextStageArray;
+
     for (var i = 0; i < p5.width; i++) {
       for (var j = 0; j < p5.height; j++) {
-        if (cellArray[i][j] === 1) {
+        if (previousStageArray[i][j] === 1) {
           p5.noStroke();
           p5.fill(255, 255, 255);
           p5.square(i, j, 1);
@@ -89493,7 +89505,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38951" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39443" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
