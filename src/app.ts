@@ -29,13 +29,13 @@ const sketch = (p5: P5) => {
 		for (let i = 0; i < p5.width; i++) {
 			previousStageArray[i] = [];
 			for (let j = 0; j < p5.height; j++) {
-				previousStageArray[i][j] = 1;
+				previousStageArray[i][j] = 0;
 			}
 		}
 
-		previousStageArray[3][10] = 0;
-		previousStageArray[4][10] = 0;
-		previousStageArray[5][10] = 0;
+		previousStageArray[3][10] = 1;
+		previousStageArray[4][10] = 1;
+		previousStageArray[5][10] = 1;
 
 		nextStageArray = [...previousStageArray];
 	};
