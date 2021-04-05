@@ -89339,14 +89339,6 @@ module.hot.accept(reloadCSS);
 },{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/app.ts":[function(require,module,exports) {
 "use strict";
 
-var __spreadArray = this && this.__spreadArray || function (to, from) {
-  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) {
-    to[j] = from[i];
-  }
-
-  return to;
-};
-
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -89363,8 +89355,9 @@ require("p5/lib/addons/p5.dom"); // import "p5/lib/addons/p5.sound";	// Include 
 
 
 require("./styles.scss"); //import Cell from "./Cell";
-// Creating the sketch itself
 
+
+var drawCalled = false; // Creating the sketch itself
 
 var sketch = function sketch(p5) {
   // DEMO: Prepare an array of MyCircle instances
@@ -89375,7 +89368,7 @@ var sketch = function sketch(p5) {
 
   p5.setup = function () {
     // Creating and positioning the canvas
-    var canvas = p5.createCanvas(200, 200);
+    var canvas = p5.createCanvas(5, 5);
     canvas.parent("app"); // Configuring the canvas
 
     p5.background("white");
@@ -89384,26 +89377,52 @@ var sketch = function sketch(p5) {
       previousStageArray[i] = [];
 
       for (var j = 0; j < p5.height; j++) {
-        previousStageArray[i][j] = 1;
+        previousStageArray[i][j] = 0;
       }
     }
 
-    previousStageArray[3][10] = 0;
-    previousStageArray[4][10] = 0;
-    previousStageArray[5][10] = 0;
-    nextStageArray = __spreadArray([], previousStageArray);
+    for (var i = 0; i < p5.width; i++) {
+      nextStageArray[i] = [];
+
+      for (var j = 0; j < p5.height; j++) {
+        nextStageArray[i][j] = 0;
+      }
+    }
+
+    previousStageArray[1][2] = 1;
+    previousStageArray[2][2] = 1;
+    previousStageArray[3][2] = 1;
+    console.log(previousStageArray);
   }; // The sketch draw method
 
 
   p5.draw = function () {
+    if (drawCalled === false) {
+      applyRules();
+    } // for (let i = 0; i < p5.width; i++) {
+    // 	for (let j = 0; j < p5.height; j++) {
+    // 		if (previousStageArray[i][j] === 1) {
+    // 			p5.noStroke();
+    // 			p5.fill(255, 255, 255);
+    // 			p5.square(i, j, 1);
+    // 		} else {
+    // 			p5.noStroke();
+    // 			p5.fill(0, 0, 0);
+    // 			p5.square(i, j, 1);
+    // 		}
+    // 	}
+    // }
+
+  };
+
+  function applyRules() {
     var _loop_1 = function _loop_1(i) {
       var _loop_2 = function _loop_2(j) {
-        var liveNeighbours = 0;
+        var liveNeighbours = 0; // checking if array exists
 
         var cellCheck = function cellCheck() {
           return i - 1 !== -1 && j - 1 !== -1 && i + 1 < p5.width && j + 1 < p5.height;
-        }; // checking if array exists
-        // checking neighbour live or dead top left to bottom right
+        }; // checking neighbour live or dead top left to bottom right
 
 
         if (cellCheck() && previousStageArray[i - 1][j - 1] === 1) {
@@ -89439,8 +89458,12 @@ var sketch = function sketch(p5) {
         } // Any live cell with two or three live neighbours survives
 
 
-        if (previousStageArray[i][j] === 1 && liveNeighbours === 3 || liveNeighbours === 2) {
+        if (previousStageArray[i][j] === 1 && liveNeighbours === 3) {
           nextStageArray[i][j] = 1;
+        } else if (previousStageArray[i][j] === 1 && liveNeighbours === 2) {
+          nextStageArray[i][j] = 1;
+        } else {
+          nextStageArray[i][j] = 0;
         } // Any dead cell with three live neighbours becomes a live cell.
 
 
@@ -89459,21 +89482,10 @@ var sketch = function sketch(p5) {
     }
 
     previousStageArray = nextStageArray;
-
-    for (var i = 0; i < p5.width; i++) {
-      for (var j = 0; j < p5.height; j++) {
-        if (previousStageArray[i][j] === 1) {
-          p5.noStroke();
-          p5.fill(255, 255, 255);
-          p5.square(i, j, 1);
-        } else {
-          p5.noStroke();
-          p5.fill(0, 0, 0);
-          p5.square(i, j, 1);
-        }
-      }
-    }
-  };
+    drawCalled = true;
+    console.log(nextStageArray);
+    return nextStageArray;
+  }
 };
 
 new p5_1.default(sketch);
@@ -89505,7 +89517,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39443" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46861" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

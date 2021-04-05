@@ -8,6 +8,8 @@ import "./styles.scss";
 import p5 from "p5";
 //import Cell from "./Cell";
 
+let drawCalled = false;
+
 // Creating the sketch itself
 const sketch = (p5: P5) => {
 	// DEMO: Prepare an array of MyCircle instances
@@ -20,7 +22,7 @@ const sketch = (p5: P5) => {
 	// The sketch setup method 
 	p5.setup = () => {
 		// Creating and positioning the canvas
-		const canvas = p5.createCanvas(200, 200);
+		const canvas = p5.createCanvas(5, 5);
 		canvas.parent("app");
 
 		// Configuring the canvas
@@ -33,24 +35,51 @@ const sketch = (p5: P5) => {
 			}
 		}
 
-		previousStageArray[3][10] = 1;
-		previousStageArray[4][10] = 1;
-		previousStageArray[5][10] = 1;
+		for (let i = 0; i < p5.width; i++) {
+			nextStageArray[i] = [];
+			for (let j = 0; j < p5.height; j++) {
+				nextStageArray[i][j] = 0;
+			}
+		}
 
-		nextStageArray = [...previousStageArray];
+		previousStageArray[1][2] = 1;
+		previousStageArray[2][2] = 1;
+		previousStageArray[3][2] = 1;
+
+		console.log(previousStageArray)
 	};
 
 	// The sketch draw method
 	p5.draw = () => {
+		if(drawCalled === false) {
+			applyRules();
+		}
+
+		// for (let i = 0; i < p5.width; i++) {
+		// 	for (let j = 0; j < p5.height; j++) {
+		// 		if (previousStageArray[i][j] === 1) {
+		// 			p5.noStroke();
+		// 			p5.fill(255, 255, 255);
+		// 			p5.square(i, j, 1);
+		// 		} else {
+		// 			p5.noStroke();
+		// 			p5.fill(0, 0, 0);
+		// 			p5.square(i, j, 1);
+		// 		}
+		// 	}
+		// }
+	}
+
+	function applyRules() {
 		for (let i = 0; i < p5.width; i++) {
 			for (let j = 0; j < p5.height; j++) {
 				let liveNeighbours: number = 0;
 
+				// checking if array exists
 				let cellCheck = () => {
-					return (i - 1 !== -1 && j - 1 !== -1 && i + 1 < p5.width && j + 1 < p5.height);
+					return (i - 1 !== -1 && j - 1 !== -1 && i + 1 < p5.width && j + 1 < p5.height) 
 				}
 
-				// checking if array exists
 				// checking neighbour live or dead top left to bottom right
 				if (cellCheck() && previousStageArray[i - 1][j - 1] === 1) {
 					liveNeighbours++
@@ -78,8 +107,12 @@ const sketch = (p5: P5) => {
 				}
 
 				// Any live cell with two or three live neighbours survives
-				if (previousStageArray[i][j] === 1 && liveNeighbours === 3 || liveNeighbours === 2) {
+				if (previousStageArray[i][j] === 1 && liveNeighbours === 3) {
 					nextStageArray[i][j] = 1;
+				} else if (previousStageArray[i][j] === 1 && liveNeighbours === 2) {
+					nextStageArray[i][j] = 1;
+				} else {
+					nextStageArray[i][j] = 0;
 				}
 
 				// Any dead cell with three live neighbours becomes a live cell.
@@ -90,20 +123,9 @@ const sketch = (p5: P5) => {
 		}
 
 		previousStageArray = nextStageArray;
-
-		for (let i = 0; i < p5.width; i++) {
-			for (let j = 0; j < p5.height; j++) {
-				if (previousStageArray[i][j] === 1) {
-					p5.noStroke();
-					p5.fill(255, 255, 255);
-					p5.square(i, j, 1);
-				} else {
-					p5.noStroke();
-					p5.fill(0, 0, 0);
-					p5.square(i, j, 1);
-				}
-			}
-		}
+		drawCalled = true;
+		console.log(nextStageArray);
+		return nextStageArray;
 	}
 };
 
