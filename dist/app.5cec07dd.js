@@ -89357,7 +89357,7 @@ require("p5/lib/addons/p5.dom"); // import "p5/lib/addons/p5.sound";	// Include 
 require("./styles.scss"); //import Cell from "./Cell";
 
 
-var drawCalled = false; // Creating the sketch itself
+var squareSize = 10; // Creating the sketch itself
 
 var sketch = function sketch(p5) {
   // DEMO: Prepare an array of MyCircle instances
@@ -89368,23 +89368,26 @@ var sketch = function sketch(p5) {
 
   p5.setup = function () {
     // Creating and positioning the canvas
-    var canvas = p5.createCanvas(3, 3);
+    var canvas = p5.createCanvas(500, 500);
+    var width = p5.width / squareSize;
+    var height = p5.height / squareSize;
     canvas.parent("app"); // Configuring the canvas
 
     p5.background("white");
+    p5.frameRate(3);
 
-    for (var i = 0; i < p5.width; i++) {
+    for (var i = 0; i < width; i++) {
       previousStageArray[i] = [];
 
-      for (var j = 0; j < p5.height; j++) {
+      for (var j = 0; j < height; j++) {
         previousStageArray[i][j] = 0;
       }
     }
 
-    for (var i = 0; i < p5.width; i++) {
+    for (var i = 0; i < width; i++) {
       nextStageArray[i] = [];
 
-      for (var j = 0; j < p5.height; j++) {
+      for (var j = 0; j < height; j++) {
         nextStageArray[i][j] = 0;
       }
     }
@@ -89392,19 +89395,34 @@ var sketch = function sketch(p5) {
     previousStageArray[0][1] = 1;
     previousStageArray[1][1] = 1;
     previousStageArray[2][1] = 1;
-    console.log(previousStageArray);
   }; // The sketch draw method
 
 
   p5.draw = function () {
-    if (drawCalled === false) {
-      applyRules();
-    }
+    drawCells();
+    applyRules();
   };
 
+  function drawCells() {
+    for (var i = 0; i < previousStageArray.length; i++) {
+      for (var j = 0; j < previousStageArray[i].length; j++) {
+        var x = squareSize * i;
+        var y = squareSize * j;
+
+        if (previousStageArray[i][j] === 0) {
+          p5.fill('white');
+          p5.square(x, y, squareSize);
+        } else {
+          p5.fill('black');
+          p5.square(x, y, squareSize);
+        }
+      }
+    }
+  }
+
   function applyRules() {
-    for (var i = 0; i < p5.width; i++) {
-      for (var j = 0; j < p5.height; j++) {
+    for (var i = 0; i < previousStageArray.length; i++) {
+      for (var j = 0; j < previousStageArray[i].length; j++) {
         var liveNeighbours = 0; // checking neighbour live or dead top left to bottom right
 
         if (getCellValue(previousStageArray, i - 1, j - 1) === 1) {
@@ -89455,10 +89473,9 @@ var sketch = function sketch(p5) {
       }
     }
 
+    var tempArray = previousStageArray;
     previousStageArray = nextStageArray;
-    drawCalled = true;
-    console.log(nextStageArray);
-    return nextStageArray;
+    nextStageArray = tempArray;
   }
 
   function getCellValue(arr, i, j) {
@@ -89499,7 +89516,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43823" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35291" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
