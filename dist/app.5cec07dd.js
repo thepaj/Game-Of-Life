@@ -89390,11 +89390,42 @@ var sketch = function sketch(p5) {
       for (var j = 0; j < height; j++) {
         nextStageArray[i][j] = 0;
       }
-    }
+    } // line
+    // previousStageArray[0][1] = 1;
+    // previousStageArray[1][1] = 1;
+    // previousStageArray[2][1] = 1;
+    // spaceship
+    // previousStageArray[0][1] = 1;
+    // previousStageArray[1][2] = 1;
+    // previousStageArray[2][0] = 1;
+    // previousStageArray[2][1] = 1;
+    // previousStageArray[2][2] = 1;
 
-    previousStageArray[0][1] = 1;
-    previousStageArray[1][1] = 1;
-    previousStageArray[2][1] = 1;
+
+    previousStageArray[10][10] = 1;
+    previousStageArray[10][11] = 1;
+    previousStageArray[10][12] = 1;
+    previousStageArray[11][10] = 1;
+    previousStageArray[11][11] = 0;
+    previousStageArray[11][12] = 1;
+    previousStageArray[12][10] = 1;
+    previousStageArray[12][11] = 1;
+    previousStageArray[12][12] = 1;
+    previousStageArray[13][10] = 1;
+    previousStageArray[13][11] = 1;
+    previousStageArray[13][12] = 1;
+    previousStageArray[14][10] = 1;
+    previousStageArray[14][11] = 1;
+    previousStageArray[14][12] = 1;
+    previousStageArray[15][10] = 1;
+    previousStageArray[15][11] = 1;
+    previousStageArray[15][12] = 1;
+    previousStageArray[16][10] = 1;
+    previousStageArray[16][11] = 0;
+    previousStageArray[16][12] = 1;
+    previousStageArray[17][10] = 1;
+    previousStageArray[17][11] = 1;
+    previousStageArray[17][12] = 1;
   }; // The sketch draw method
 
 
@@ -89410,9 +89441,11 @@ var sketch = function sketch(p5) {
         var y = squareSize * j;
 
         if (previousStageArray[i][j] === 0) {
+          p5.noStroke();
           p5.fill('white');
           p5.square(x, y, squareSize);
         } else {
+          p5.noStroke();
           p5.fill('black');
           p5.square(x, y, squareSize);
         }
@@ -89516,7 +89549,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35291" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46777" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
