@@ -89368,7 +89368,7 @@ var sketch = function sketch(p5) {
 
   p5.setup = function () {
     // Creating and positioning the canvas
-    var canvas = p5.createCanvas(5, 5);
+    var canvas = p5.createCanvas(3, 3);
     canvas.parent("app"); // Configuring the canvas
 
     p5.background("white");
@@ -89389,9 +89389,9 @@ var sketch = function sketch(p5) {
       }
     }
 
-    previousStageArray[1][2] = 1;
-    previousStageArray[2][2] = 1;
-    previousStageArray[3][2] = 1;
+    previousStageArray[0][1] = 1;
+    previousStageArray[1][1] = 1;
+    previousStageArray[2][1] = 1;
     console.log(previousStageArray);
   }; // The sketch draw method
 
@@ -89399,61 +89399,43 @@ var sketch = function sketch(p5) {
   p5.draw = function () {
     if (drawCalled === false) {
       applyRules();
-    } // for (let i = 0; i < p5.width; i++) {
-    // 	for (let j = 0; j < p5.height; j++) {
-    // 		if (previousStageArray[i][j] === 1) {
-    // 			p5.noStroke();
-    // 			p5.fill(255, 255, 255);
-    // 			p5.square(i, j, 1);
-    // 		} else {
-    // 			p5.noStroke();
-    // 			p5.fill(0, 0, 0);
-    // 			p5.square(i, j, 1);
-    // 		}
-    // 	}
-    // }
-
+    }
   };
 
   function applyRules() {
-    var _loop_1 = function _loop_1(i) {
-      var _loop_2 = function _loop_2(j) {
-        var liveNeighbours = 0; // checking if array exists
+    for (var i = 0; i < p5.width; i++) {
+      for (var j = 0; j < p5.height; j++) {
+        var liveNeighbours = 0; // checking neighbour live or dead top left to bottom right
 
-        var cellCheck = function cellCheck() {
-          return i - 1 !== -1 && j - 1 !== -1 && i + 1 < p5.width && j + 1 < p5.height;
-        }; // checking neighbour live or dead top left to bottom right
-
-
-        if (cellCheck() && previousStageArray[i - 1][j - 1] === 1) {
+        if (getCellValue(previousStageArray, i - 1, j - 1) === 1) {
           liveNeighbours++;
         }
 
-        if (cellCheck() && previousStageArray[i - 1][j] === 1) {
+        if (getCellValue(previousStageArray, i - 1, j) === 1) {
           liveNeighbours++;
         }
 
-        if (cellCheck() && previousStageArray[i - 1][j + 1] === 1) {
+        if (getCellValue(previousStageArray, i - 1, j + 1) === 1) {
           liveNeighbours++;
         }
 
-        if (cellCheck() && previousStageArray[i][j - 1] === 1) {
+        if (getCellValue(previousStageArray, i, j - 1) === 1) {
           liveNeighbours++;
         }
 
-        if (cellCheck() && previousStageArray[i][j + 1] === 1) {
+        if (getCellValue(previousStageArray, i, j + 1) === 1) {
           liveNeighbours++;
         }
 
-        if (cellCheck() && previousStageArray[i + 1][j - 1] === 1) {
+        if (getCellValue(previousStageArray, i + 1, j - 1) === 1) {
           liveNeighbours++;
         }
 
-        if (cellCheck() && previousStageArray[i + 1][j] === 1) {
+        if (getCellValue(previousStageArray, i + 1, j) === 1) {
           liveNeighbours++;
         }
 
-        if (cellCheck() && previousStageArray[i + 1][j + 1] === 1) {
+        if (getCellValue(previousStageArray, i + 1, j + 1) === 1) {
           liveNeighbours++;
         } // Any live cell with two or three live neighbours survives
 
@@ -89470,21 +89452,21 @@ var sketch = function sketch(p5) {
         if (previousStageArray[i][j] === 0 && liveNeighbours === 3) {
           nextStageArray[i][j] = 1;
         }
-      };
-
-      for (var j = 0; j < p5.height; j++) {
-        _loop_2(j);
       }
-    };
-
-    for (var i = 0; i < p5.width; i++) {
-      _loop_1(i);
     }
 
     previousStageArray = nextStageArray;
     drawCalled = true;
     console.log(nextStageArray);
     return nextStageArray;
+  }
+
+  function getCellValue(arr, i, j) {
+    if (i >= 0 && i < arr.length && j >= 0 && j < arr.length) {
+      return arr[i][j];
+    } else {
+      return null;
+    }
   }
 };
 
@@ -89517,7 +89499,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46861" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43823" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

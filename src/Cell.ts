@@ -9,8 +9,8 @@ export default class Cell {
 	}
 
 	show() {
-		p5.noStroke();
-		p5.fill(0,0,0);
-		p5.square(i, j, 1);
+		P5.noStroke();
+		P5.fill(0,0,0);
+		P5.square(x, y, 100);
 	}
 }

@@ -22,7 +22,7 @@ const sketch = (p5: P5) => {
 	// The sketch setup method 
 	p5.setup = () => {
 		// Creating and positioning the canvas
-		const canvas = p5.createCanvas(5, 5);
+		const canvas = p5.createCanvas(3, 3);
 		canvas.parent("app");
 
 		// Configuring the canvas
@@ -42,9 +42,9 @@ const sketch = (p5: P5) => {
 			}
 		}
 
-		previousStageArray[1][2] = 1;
-		previousStageArray[2][2] = 1;
-		previousStageArray[3][2] = 1;
+		previousStageArray[0][1] = 1;
+		previousStageArray[1][1] = 1;
+		previousStageArray[2][1] = 1;
 
 		console.log(previousStageArray)
 	};
@@ -54,20 +54,6 @@ const sketch = (p5: P5) => {
 		if(drawCalled === false) {
 			applyRules();
 		}
-
-		// for (let i = 0; i < p5.width; i++) {
-		// 	for (let j = 0; j < p5.height; j++) {
-		// 		if (previousStageArray[i][j] === 1) {
-		// 			p5.noStroke();
-		// 			p5.fill(255, 255, 255);
-		// 			p5.square(i, j, 1);
-		// 		} else {
-		// 			p5.noStroke();
-		// 			p5.fill(0, 0, 0);
-		// 			p5.square(i, j, 1);
-		// 		}
-		// 	}
-		// }
 	}
 
 	function applyRules() {
@@ -75,34 +61,29 @@ const sketch = (p5: P5) => {
 			for (let j = 0; j < p5.height; j++) {
 				let liveNeighbours: number = 0;
 
-				// checking if array exists
-				let cellCheck = () => {
-					return (i - 1 !== -1 && j - 1 !== -1 && i + 1 < p5.width && j + 1 < p5.height) 
-				}
-
 				// checking neighbour live or dead top left to bottom right
-				if (cellCheck() && previousStageArray[i - 1][j - 1] === 1) {
+				if (getCellValue(previousStageArray, i - 1, j - 1) === 1) {
 					liveNeighbours++
 				}
-				if (cellCheck() && previousStageArray[i - 1][j] === 1) {
+				if (getCellValue(previousStageArray,  i - 1, j) === 1) {
 					liveNeighbours++
 				}
-				if (cellCheck() && previousStageArray[i - 1][j + 1] === 1) {
+				if (getCellValue(previousStageArray, i - 1, j + 1) === 1) {
 					liveNeighbours++
 				}
-				if (cellCheck() && previousStageArray[i][j - 1] === 1) {
+				if (getCellValue(previousStageArray, i, j - 1) === 1) {
 					liveNeighbours++
 				}
-				if (cellCheck() && previousStageArray[i][j + 1] === 1) {
+				if (getCellValue(previousStageArray, i, j + 1) === 1) {
 					liveNeighbours++
 				}
-				if (cellCheck() && previousStageArray[i + 1][j - 1] === 1) {
+				if (getCellValue(previousStageArray, i + 1, j - 1) === 1) {
 					liveNeighbours++
 				}
-				if (cellCheck() && previousStageArray[i + 1][j] === 1) {
+				if (getCellValue(previousStageArray, i + 1, j) === 1) {
 					liveNeighbours++
 				}
-				if (cellCheck() && previousStageArray[i + 1][j + 1] === 1) {
+				if (getCellValue(previousStageArray, i + 1, j + 1) === 1) {
 					liveNeighbours++
 				}
 
@@ -126,6 +107,14 @@ const sketch = (p5: P5) => {
 		drawCalled = true;
 		console.log(nextStageArray);
 		return nextStageArray;
+	}
+
+	function getCellValue(arr: number[][], i: number, j: number) {
+		if(i >= 0 && i < arr.length && j >= 0 && j < arr.length) {
+			return arr[i][j];
+		} else {
+			return null;
+		}
 	}
 };
 
