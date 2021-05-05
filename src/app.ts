@@ -2,6 +2,7 @@ import P5 from "p5";
 import "p5/lib/addons/p5.dom";
 import "./styles.scss";
 import p5 from "p5";
+import Cell from './Cell';
 
 const squareSize = 10;
 
@@ -9,7 +10,7 @@ const squareSize = 10;
 const sketch = (p5: P5) => {
 let previousStageArray: number[][] = [[], []];
 	let nextStageArray: number[][] = [[], []];
-	const cells = [[], []];
+	const cells: Cell[] = [];
 
 	// The sketch setup method 
 	p5.setup = () => {
@@ -51,16 +52,14 @@ let previousStageArray: number[][] = [[], []];
 	function drawCells() {
 		for (let i = 0; i < previousStageArray.length; i++) {
 			for (let j = 0; j < previousStageArray[i].length; j++) {
-				let x: number = squareSize * i;
-				let y: number = squareSize * j;
+				let xDir: number = squareSize * i;
+				let yDir: number = squareSize * j;
 				if (previousStageArray[i][j] === 0) {
-					p5.noStroke();
-					p5.fill('white');
-					p5.square(x, y, squareSize);
+					cells[i] = new Cell(p5, squareSize, xDir, yDir , 'white');
+					cells[i].draw();
 				} else {
-					p5.noStroke();
-					p5.fill('black');
-					p5.square(x, y, squareSize);
+					cells[i] = new Cell(p5, squareSize, xDir, yDir, 'black');
+					cells[i].draw();
 				}
 			}
 		}

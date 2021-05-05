@@ -89336,7 +89336,36 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/app.ts":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/Cell.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Cell =
+/** @class */
+function () {
+  function Cell(p5, size, x, y, color) {
+    this.p5 = p5;
+    this.size = size;
+    this.x = x;
+    this.y = y;
+    this.color = color;
+  }
+
+  Cell.prototype.draw = function () {
+    var p5 = this.p5;
+    p5.noStroke();
+    p5.fill(this.color);
+    p5.square(this.x, this.y, 100);
+  };
+
+  return Cell;
+}();
+
+exports.default = Cell;
+},{}],"src/app.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -89355,12 +89384,14 @@ require("p5/lib/addons/p5.dom");
 
 require("./styles.scss");
 
+var Cell_1 = __importDefault(require("./Cell"));
+
 var squareSize = 10; // Creating the sketch itself
 
 var sketch = function sketch(p5) {
   var previousStageArray = [[], []];
   var nextStageArray = [[], []];
-  var cells = [[], []]; // The sketch setup method 
+  var cells = []; // The sketch setup method 
 
   p5.setup = function () {
     var canvas = p5.createCanvas(500, 500);
@@ -89402,17 +89433,15 @@ var sketch = function sketch(p5) {
   function drawCells() {
     for (var i = 0; i < previousStageArray.length; i++) {
       for (var j = 0; j < previousStageArray[i].length; j++) {
-        var x = squareSize * i;
-        var y = squareSize * j;
+        var xDir = squareSize * i;
+        var yDir = squareSize * j;
 
         if (previousStageArray[i][j] === 0) {
-          p5.noStroke();
-          p5.fill('white');
-          p5.square(x, y, squareSize);
+          cells[i] = new Cell_1.default(p5, squareSize, xDir, yDir, 'white');
+          cells[i].draw();
         } else {
-          p5.noStroke();
-          p5.fill('black');
-          p5.square(x, y, squareSize);
+          cells[i] = new Cell_1.default(p5, squareSize, xDir, yDir, 'black');
+          cells[i].draw();
         }
       }
     }
@@ -89540,7 +89569,7 @@ var sketch = function sketch(p5) {
 };
 
 new p5_1.default(sketch);
-},{"p5":"node_modules/p5/lib/p5.js","p5/lib/addons/p5.dom":"node_modules/p5/lib/addons/p5.dom.js","./styles.scss":"src/styles.scss"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"p5":"node_modules/p5/lib/p5.js","p5/lib/addons/p5.dom":"node_modules/p5/lib/addons/p5.dom.js","./styles.scss":"src/styles.scss","./Cell":"src/Cell.ts"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -89568,7 +89597,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39431" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34617" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
