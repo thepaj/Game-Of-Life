@@ -1,33 +1,29 @@
 import P5 from "p5";
 import "p5/lib/addons/p5.dom";
-// import "p5/lib/addons/p5.sound";	// Include if needed
 import "./styles.scss";
-
-// DEMO: A sample class implementation
-//import Cell from "./Cell";
 import p5 from "p5";
-//import Cell from "./Cell";
 
 const squareSize = 10;
 
 // Creating the sketch itself
 const sketch = (p5: P5) => {
-	// DEMO: Prepare an array of MyCircle instances
-	// const cells: Cell[] = [];
-
-	let previousStageArray: number[][] = [[], []];
+let previousStageArray: number[][] = [[], []];
 	let nextStageArray: number[][] = [[], []];
 	const cells = [[], []];
 
 	// The sketch setup method 
 	p5.setup = () => {
-		// Creating and positioning the canvas
 		const canvas = p5.createCanvas(500, 500);
+		const lineBtn = p5.select('#btn-line');
+		const spaceshipBtn = p5.select('#btn-spaceship');
+		const pentaDecaBtn = p5.select('#btn-penta-deca');
+		lineBtn!.mousePressed(line);
+		spaceshipBtn!.mousePressed(spaceship);
+		pentaDecaBtn!.mousePressed(pentaDecathlon);
 		const width: number = p5.width / squareSize;
 		const height: number = p5.height / squareSize;
 		canvas.parent("app");
 
-		// Configuring the canvas
 		p5.background("white");
 		p5.frameRate(3);
 
@@ -44,43 +40,6 @@ const sketch = (p5: P5) => {
 				nextStageArray[i][j] = 0;
 			}
 		}
-
-		// line
-		// previousStageArray[0][1] = 1;
-		// previousStageArray[1][1] = 1;
-		// previousStageArray[2][1] = 1;
-
-		// spaceship
-		// previousStageArray[0][1] = 1;
-		// previousStageArray[1][2] = 1;
-		// previousStageArray[2][0] = 1;
-		// previousStageArray[2][1] = 1;
-		// previousStageArray[2][2] = 1;
-
-		previousStageArray[10][10] = 1;
-		previousStageArray[10][11] = 1;
-		previousStageArray[10][12] = 1;
-		previousStageArray[11][10] = 1;
-		previousStageArray[11][11] = 0;
-		previousStageArray[11][12] = 1;
-		previousStageArray[12][10] = 1;
-		previousStageArray[12][11] = 1;
-		previousStageArray[12][12] = 1;
-		previousStageArray[13][10] = 1;
-		previousStageArray[13][11] = 1;
-		previousStageArray[13][12] = 1;
-		previousStageArray[14][10] = 1;
-		previousStageArray[14][11] = 1;
-		previousStageArray[14][12] = 1;
-		previousStageArray[15][10] = 1;
-		previousStageArray[15][11] = 1;
-		previousStageArray[15][12] = 1;
-		previousStageArray[16][10] = 1;
-		previousStageArray[16][11] = 0;
-		previousStageArray[16][12] = 1;
-		previousStageArray[17][10] = 1;
-		previousStageArray[17][11] = 1;
-		previousStageArray[17][12] = 1;
 	};
 
 	// The sketch draw method
@@ -164,6 +123,62 @@ const sketch = (p5: P5) => {
 			return arr[i][j];
 		} else {
 			return null;
+		}
+	}
+
+	function line() {
+		killEveryone();
+
+		previousStageArray[0][1] = 1;
+		previousStageArray[1][1] = 1;
+		previousStageArray[2][1] = 1;
+	}
+
+	function spaceship() {
+		killEveryone();
+
+		previousStageArray[0][1] = 1;
+		previousStageArray[1][2] = 1;
+		previousStageArray[2][0] = 1;
+		previousStageArray[2][1] = 1;
+		previousStageArray[2][2] = 1;
+	}
+
+	function pentaDecathlon() {
+		killEveryone();
+
+		previousStageArray[10][10] = 1;
+		previousStageArray[10][11] = 1;
+		previousStageArray[10][12] = 1;
+		previousStageArray[11][10] = 1;
+		previousStageArray[11][11] = 0;
+		previousStageArray[11][12] = 1;
+		previousStageArray[12][10] = 1;
+		previousStageArray[12][11] = 1;
+		previousStageArray[12][12] = 1;
+		previousStageArray[13][10] = 1;
+		previousStageArray[13][11] = 1;
+		previousStageArray[13][12] = 1;
+		previousStageArray[14][10] = 1;
+		previousStageArray[14][11] = 1;
+		previousStageArray[14][12] = 1;
+		previousStageArray[15][10] = 1;
+		previousStageArray[15][11] = 1;
+		previousStageArray[15][12] = 1;
+		previousStageArray[16][10] = 1;
+		previousStageArray[16][11] = 0;
+		previousStageArray[16][12] = 1;
+		previousStageArray[17][10] = 1;
+		previousStageArray[17][11] = 1;
+		previousStageArray[17][12] = 1;
+	}
+
+	function killEveryone() {
+		for (let i = 0; i < p5.width / squareSize; i++) {
+			previousStageArray[i] = [];
+			for (let j = 0; j < p5.height / squareSize; j++) {
+				previousStageArray[i][j] = 0;
+			}
 		}
 	}
 };

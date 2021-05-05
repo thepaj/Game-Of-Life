@@ -89351,28 +89351,28 @@ Object.defineProperty(exports, "__esModule", {
 
 var p5_1 = __importDefault(require("p5"));
 
-require("p5/lib/addons/p5.dom"); // import "p5/lib/addons/p5.sound";	// Include if needed
+require("p5/lib/addons/p5.dom");
 
-
-require("./styles.scss"); //import Cell from "./Cell";
-
+require("./styles.scss");
 
 var squareSize = 10; // Creating the sketch itself
 
 var sketch = function sketch(p5) {
-  // DEMO: Prepare an array of MyCircle instances
-  // const cells: Cell[] = [];
   var previousStageArray = [[], []];
   var nextStageArray = [[], []];
   var cells = [[], []]; // The sketch setup method 
 
   p5.setup = function () {
-    // Creating and positioning the canvas
     var canvas = p5.createCanvas(500, 500);
+    var lineBtn = p5.select('#btn-line');
+    var spaceshipBtn = p5.select('#btn-spaceship');
+    var pentaDecaBtn = p5.select('#btn-penta-deca');
+    lineBtn.mousePressed(line);
+    spaceshipBtn.mousePressed(spaceship);
+    pentaDecaBtn.mousePressed(pentaDecathlon);
     var width = p5.width / squareSize;
     var height = p5.height / squareSize;
-    canvas.parent("app"); // Configuring the canvas
-
+    canvas.parent("app");
     p5.background("white");
     p5.frameRate(3);
 
@@ -89390,42 +89390,7 @@ var sketch = function sketch(p5) {
       for (var j = 0; j < height; j++) {
         nextStageArray[i][j] = 0;
       }
-    } // line
-    // previousStageArray[0][1] = 1;
-    // previousStageArray[1][1] = 1;
-    // previousStageArray[2][1] = 1;
-    // spaceship
-    // previousStageArray[0][1] = 1;
-    // previousStageArray[1][2] = 1;
-    // previousStageArray[2][0] = 1;
-    // previousStageArray[2][1] = 1;
-    // previousStageArray[2][2] = 1;
-
-
-    previousStageArray[10][10] = 1;
-    previousStageArray[10][11] = 1;
-    previousStageArray[10][12] = 1;
-    previousStageArray[11][10] = 1;
-    previousStageArray[11][11] = 0;
-    previousStageArray[11][12] = 1;
-    previousStageArray[12][10] = 1;
-    previousStageArray[12][11] = 1;
-    previousStageArray[12][12] = 1;
-    previousStageArray[13][10] = 1;
-    previousStageArray[13][11] = 1;
-    previousStageArray[13][12] = 1;
-    previousStageArray[14][10] = 1;
-    previousStageArray[14][11] = 1;
-    previousStageArray[14][12] = 1;
-    previousStageArray[15][10] = 1;
-    previousStageArray[15][11] = 1;
-    previousStageArray[15][12] = 1;
-    previousStageArray[16][10] = 1;
-    previousStageArray[16][11] = 0;
-    previousStageArray[16][12] = 1;
-    previousStageArray[17][10] = 1;
-    previousStageArray[17][11] = 1;
-    previousStageArray[17][12] = 1;
+    }
   }; // The sketch draw method
 
 
@@ -89518,6 +89483,60 @@ var sketch = function sketch(p5) {
       return null;
     }
   }
+
+  function line() {
+    killEveryone();
+    previousStageArray[0][1] = 1;
+    previousStageArray[1][1] = 1;
+    previousStageArray[2][1] = 1;
+  }
+
+  function spaceship() {
+    killEveryone();
+    previousStageArray[0][1] = 1;
+    previousStageArray[1][2] = 1;
+    previousStageArray[2][0] = 1;
+    previousStageArray[2][1] = 1;
+    previousStageArray[2][2] = 1;
+  }
+
+  function pentaDecathlon() {
+    killEveryone();
+    previousStageArray[10][10] = 1;
+    previousStageArray[10][11] = 1;
+    previousStageArray[10][12] = 1;
+    previousStageArray[11][10] = 1;
+    previousStageArray[11][11] = 0;
+    previousStageArray[11][12] = 1;
+    previousStageArray[12][10] = 1;
+    previousStageArray[12][11] = 1;
+    previousStageArray[12][12] = 1;
+    previousStageArray[13][10] = 1;
+    previousStageArray[13][11] = 1;
+    previousStageArray[13][12] = 1;
+    previousStageArray[14][10] = 1;
+    previousStageArray[14][11] = 1;
+    previousStageArray[14][12] = 1;
+    previousStageArray[15][10] = 1;
+    previousStageArray[15][11] = 1;
+    previousStageArray[15][12] = 1;
+    previousStageArray[16][10] = 1;
+    previousStageArray[16][11] = 0;
+    previousStageArray[16][12] = 1;
+    previousStageArray[17][10] = 1;
+    previousStageArray[17][11] = 1;
+    previousStageArray[17][12] = 1;
+  }
+
+  function killEveryone() {
+    for (var i = 0; i < p5.width / squareSize; i++) {
+      previousStageArray[i] = [];
+
+      for (var j = 0; j < p5.height / squareSize; j++) {
+        previousStageArray[i][j] = 0;
+      }
+    }
+  }
 };
 
 new p5_1.default(sketch);
@@ -89549,7 +89568,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46777" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39431" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
