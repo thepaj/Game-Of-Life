@@ -25,7 +25,7 @@ let previousStageArray: number[][] = [[], []];
 		const height: number = p5.height / squareSize;
 		canvas.parent("app");
 
-		p5.background("white");
+		p5.background("#FAF9F6");
 		p5.frameRate(3);
 
 		for (let i = 0; i < width; i++) {
@@ -55,7 +55,7 @@ let previousStageArray: number[][] = [[], []];
 				let xDir: number = squareSize * i;
 				let yDir: number = squareSize * j;
 				if (previousStageArray[i][j] === 0) {
-					cells[i] = new Cell(p5, squareSize, xDir, yDir , 'white');
+					cells[i] = new Cell(p5, squareSize, xDir, yDir , '#FAF9F6');
 					cells[i].draw();
 				} else {
 					cells[i] = new Cell(p5, squareSize, xDir, yDir, 'black');

@@ -89404,7 +89404,7 @@ var sketch = function sketch(p5) {
     var width = p5.width / squareSize;
     var height = p5.height / squareSize;
     canvas.parent("app");
-    p5.background("white");
+    p5.background("#FAF9F6");
     p5.frameRate(3);
 
     for (var i = 0; i < width; i++) {
@@ -89437,7 +89437,7 @@ var sketch = function sketch(p5) {
         var yDir = squareSize * j;
 
         if (previousStageArray[i][j] === 0) {
-          cells[i] = new Cell_1.default(p5, squareSize, xDir, yDir, 'white');
+          cells[i] = new Cell_1.default(p5, squareSize, xDir, yDir, '#FAF9F6');
           cells[i].draw();
         } else {
           cells[i] = new Cell_1.default(p5, squareSize, xDir, yDir, 'black');
@@ -89597,7 +89597,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37353" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39569" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

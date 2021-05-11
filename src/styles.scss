@@ -1,13 +1,13 @@
-$primary-colorr: #957dad;
+$primary-color: #957dad;
 $secondary-color: #d291bc;
-$bg-color: #ffdfd3;
+$bg-color: #FAF9F6;
 
 body {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
     background-color: $bg-color;
-    color: $primary-colorr;
+    color: $primary-color;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -16,9 +16,46 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin:20px 50px;
+}
+
+h1 {
+    font-family: 'Abril Fatface', cursive;
+    letter-spacing: 5px;
+    font-size: 70px;
 }
 
 .btn-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
 }
+
+.btn {
+    padding: 10px 0;
+    margin: 10px 10px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    background-color: $primary-color;
+    color: white;
+}
+
+.btn:hover {
+    background-color: $secondary-color;
+    border: none;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+btn:hover, btn:visited, btn:link, btn:active, btn:focus
+{
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+    
