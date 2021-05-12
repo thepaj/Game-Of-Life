@@ -89386,7 +89386,7 @@ require("./styles.scss");
 
 var Cell_1 = __importDefault(require("./Cell"));
 
-var squareSize = 10; // Creating the sketch itself
+var squareSize = 20; // Creating the sketch itself
 
 var sketch = function sketch(p5) {
   var previousStageArray = [[], []];
@@ -89518,6 +89518,27 @@ var sketch = function sketch(p5) {
     previousStageArray[0][1] = 1;
     previousStageArray[1][1] = 1;
     previousStageArray[2][1] = 1;
+    previousStageArray[3][4] = 1;
+    previousStageArray[4][4] = 1;
+    previousStageArray[5][4] = 1;
+    previousStageArray[6][7] = 1;
+    previousStageArray[7][7] = 1;
+    previousStageArray[8][7] = 1;
+    previousStageArray[9][10] = 1;
+    previousStageArray[10][10] = 1;
+    previousStageArray[11][10] = 1;
+    previousStageArray[12][13] = 1;
+    previousStageArray[13][13] = 1;
+    previousStageArray[14][13] = 1;
+    previousStageArray[15][16] = 1;
+    previousStageArray[16][16] = 1;
+    previousStageArray[17][16] = 1;
+    previousStageArray[18][19] = 1;
+    previousStageArray[19][19] = 1;
+    previousStageArray[20][19] = 1;
+    previousStageArray[21][22] = 1;
+    previousStageArray[22][22] = 1;
+    previousStageArray[23][22] = 1;
   }
 
   function spaceship() {
@@ -89597,7 +89618,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39569" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40371" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

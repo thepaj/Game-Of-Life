@@ -15,10 +15,10 @@ body {
   margin: 20px 50px;
 }
 
-h1 {
+#title {
   font-family: "Abril Fatface", cursive;
-  letter-spacing: 5px;
   font-size: 70px;
+  margin: 20px;
 }
 
 .btn-container {

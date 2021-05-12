@@ -4,7 +4,7 @@ import "./styles.scss";
 import p5 from "p5";
 import Cell from './Cell';
 
-const squareSize = 10;
+const squareSize = 20;
 
 // Creating the sketch itself
 const sketch = (p5: P5) => {
@@ -131,6 +131,34 @@ let previousStageArray: number[][] = [[], []];
 		previousStageArray[0][1] = 1;
 		previousStageArray[1][1] = 1;
 		previousStageArray[2][1] = 1;
+
+		previousStageArray[3][4] = 1;
+		previousStageArray[4][4] = 1;
+		previousStageArray[5][4] = 1;
+
+		previousStageArray[6][7] = 1;
+		previousStageArray[7][7] = 1;
+		previousStageArray[8][7] = 1;
+		
+		previousStageArray[9][10] = 1;
+		previousStageArray[10][10] = 1;
+		previousStageArray[11][10] = 1;
+
+		previousStageArray[12][13] = 1;
+		previousStageArray[13][13] = 1;
+		previousStageArray[14][13] = 1;
+
+		previousStageArray[15][16] = 1;
+		previousStageArray[16][16] = 1;
+		previousStageArray[17][16] = 1;
+
+		previousStageArray[18][19] = 1;
+		previousStageArray[19][19] = 1;
+		previousStageArray[20][19] = 1;
+
+		previousStageArray[21][22] = 1;
+		previousStageArray[22][22] = 1;
+		previousStageArray[23][22] = 1;
 	}
 
 	function spaceship() {
@@ -182,4 +210,4 @@ let previousStageArray: number[][] = [[], []];
 	}
 };
 
-new P5(sketch);
+new P5(sketch)
