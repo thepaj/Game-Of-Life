@@ -41,6 +41,9 @@ let previousStageArray: number[][] = [[], []];
 				nextStageArray[i][j] = 0;
 			}
 		}
+
+		// start drawing lines
+		line();
 	};
 
 	// The sketch draw method
